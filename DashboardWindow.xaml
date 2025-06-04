@@ -1,0 +1,8 @@
+﻿<Window x:Class="WPFK.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dashboard" Height="500" Width="500">
+    <Grid>
+        <TextBlock Text="Witaj w aplikacji!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+    </Grid>
+</Window>
