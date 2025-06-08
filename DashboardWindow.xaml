@@ -1,8 +1,86 @@
 ﻿<Window x:Class="WPFK.DashboardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Dashboard" Height="500" Width="500">
-    <Grid>
-        <TextBlock Text="Witaj w aplikacji!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+        Title="Kurier - Panel Administratora" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Panel Admina - Kurier" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Formularz dodawania przesyłki -->
+            <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                <TextBlock FontSize="18" Margin="0,0,0,10">
+        <Run Language="pl-pl" Text="Nowa paczka"/><Run Text=":"/>
+                </TextBlock>
+
+                <TextBlock Text="Nadawca:" Margin="0,5,0,0"/>
+                <TextBox x:Name="SenderTextBox" Margin="0,5"/>
+
+                <TextBlock Text="Odbiorca:" Margin="0,10,0,0"/>
+                <TextBox x:Name="RecipientTextBox" Margin="0,5"/>
+
+                <TextBlock Text="Adres dostawy:" Margin="0,10,0,0"/>
+                <TextBox x:Name="AddressTextBox" Margin="0,5"/>
+
+                <TextBlock Text="Status przesyłki:" Margin="0,10,0,0"/>
+                <ComboBox x:Name="StatusComboBox" Margin="0,5">
+                    <ComboBoxItem Content="Przyjęta"/>
+                    <ComboBoxItem Content="W drodze"/>
+                    <ComboBoxItem Content="Dostarczona"/>
+                </ComboBox>
+
+                <Button Content="Dodaj przesyłkę" Click="AddParcel_Click" Margin="0,10,0,0"/>
+                <Button Content="Edytuj przesyłkę" Margin="0,5,0,0" Click="EditParcel_Click"/>
+            </StackPanel>
+
+
+            <!-- Lista przesyłek -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Lista przesyłek:" FontSize="18" Margin="0,0,0,10"/>
+                <ListView x:Name="ParcelListView" Height="400" SelectionChanged="ParcelListView_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="30"/>
+                            <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="100"/>
+                            <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="100"/>
+                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Odśwież" Margin="0,10,0,0" Click="RefreshParcels_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,331,0,132">
+                <TextBlock Text="Filtruj po statusie:" Height="20" Width="104"/>
+                <ComboBox x:Name="FilterStatusComboBox" Width="150" Height="25">
+                    <ComboBoxItem Content="Wszystkie" IsSelected="True"/>
+                    <ComboBoxItem Content="Przyjęta"/>
+                    <ComboBoxItem Content="W drodze"/>
+                    <ComboBoxItem Content="Dostarczona"/>
+                </ComboBox>
+                <Button Content="Filtruj" Margin="10,0,0,0" Click="FilterParcels_Click" Height="25" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+            </StackPanel>
+            <Button Content="Pokaż historię" Margin="0,385,20,0" Click="ShowHistory_Click" Height="47" VerticalAlignment="Top"/>
+
+        </Grid>
     </Grid>
 </Window>

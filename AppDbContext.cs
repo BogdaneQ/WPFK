@@ -6,6 +6,9 @@ namespace WPFK.Data
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Parcel> Parcels { get; set; }
+        public DbSet<ParcelStatusHistory> ParcelStatusHistories { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
