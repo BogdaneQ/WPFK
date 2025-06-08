@@ -11,5 +11,9 @@ namespace WPFK.Models
 
         [Required]
         public string Password { get; set; } // hasła można później hashować
+
+        public string Role {  get; set; }
+
+        public ICollection<Parcel> Parcels { get; set; }
     }
 }

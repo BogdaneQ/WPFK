@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using WPFK.Data;
+using WPFK.Helpers;
 using WPFK.Models;
+using WPFK.Views;
+
 
 
 namespace WPFK
@@ -27,6 +30,8 @@ namespace WPFK
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+
+
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
@@ -35,9 +40,20 @@ namespace WPFK
 
             if (user != null)
             {
+                Session.CurrentUser = user;
                 MessageBox.Show($"Zalogowano jako {user.Username}");
-                var dashboard = new DashboardWindow();
-                dashboard.Show();
+                
+                if (Session.CurrentUser.Role == "ADMIN")
+                {
+                    var dashboard = new DashboardWindow();
+                    dashboard.Show();
+                }
+                if (Session.CurrentUser.Role == "USER")
+                {
+                    var home = new UserHome();
+                    home.Show();
+                }
+
                 this.Close();
             }
             else

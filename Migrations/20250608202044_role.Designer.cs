@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WPFK.Data;
@@ -11,9 +12,11 @@ using WPFK.Data;
 namespace WPFK.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250608202044_role")]
+    partial class role
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,12 +52,7 @@ namespace WPFK.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Parcels");
                 });
@@ -109,17 +107,6 @@ namespace WPFK.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WPFK.Models.Parcel", b =>
-                {
-                    b.HasOne("WPFK.Models.User", "User")
-                        .WithMany("Parcels")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WPFK.Models.ParcelStatusHistory", b =>
                 {
                     b.HasOne("WPFK.Models.Parcel", "Parcel")
@@ -134,11 +121,6 @@ namespace WPFK.Migrations
             modelBuilder.Entity("WPFK.Models.Parcel", b =>
                 {
                     b.Navigation("StatusHistories");
-                });
-
-            modelBuilder.Entity("WPFK.Models.User", b =>
-                {
-                    b.Navigation("Parcels");
                 });
 #pragma warning restore 612, 618
         }

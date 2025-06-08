@@ -3,6 +3,7 @@ using WPFK.Data;
 using WPFK.Models;
 using System.Linq;
 using System.Windows.Controls;
+using WPFK.Helpers;
 
 namespace WPFK
 {
@@ -27,10 +28,13 @@ namespace WPFK
                 Recipient = RecipientTextBox.Text,
                 Address = AddressTextBox.Text,
                 Status = status,
-                CreatedAt = DateTime.UtcNow // <--- użyj UTC
+                CreatedAt = DateTime.UtcNow, // <--- użyj UTC
+                UserId = Session.CurrentUser.Id
             };
 
             db.Parcels.Add(parcel);
+
+
             db.SaveChanges();
 
             db.ParcelStatusHistories.Add(new ParcelStatusHistory
