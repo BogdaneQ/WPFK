@@ -4,6 +4,7 @@ using WPFK.Data;
 using WPFK.Helpers;
 using WPFK.Models;
 using WPFK.Views;
+using WPFK.Views.Users;
 
 
 
@@ -16,17 +17,10 @@ namespace WPFK
         public MainWindow()
         {
             InitializeComponent();
-            InitializeUsers();
+          
         }
 
-        private void InitializeUsers()
-        {
-            _users = new List<User>
-            {
-                new User { Username = "admin", Password = "admin123" },
-                new User { Username = "user", Password = "password" }
-            };
-        }
+        
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -50,8 +44,15 @@ namespace WPFK
                 }
                 if (Session.CurrentUser.Role == "USER")
                 {
-                    var home = new UserHome();
-                    home.Show();
+                    var home = new UserHomePage();
+                    var homeWindow = new Window
+                    {
+                        Content = home,
+                        Title = "User Home Page",
+                        Width = 800,
+                        Height = 600
+                    };
+                    homeWindow.Show();
                 }
 
                 this.Close();
