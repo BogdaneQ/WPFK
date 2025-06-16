@@ -34,8 +34,8 @@
         <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,20">
             <TextBlock Text="📦 Panel użytkownika" FontSize="26" FontWeight="Bold" Foreground="#007ACC"
                        VerticalAlignment="Center"/>
-            <Button Content="Wyloguj" DockPanel.Dock="Right" Width="100" Click="LogoutButton_Click"/>
-            <Button Content="Historia dostarczonych" DockPanel.Dock="Right" Width="180" Click="ShowDeliveredHistory_Click"/>
+            <Button Content="Wyloguj" DockPanel.Dock="Right" Width="100" Command="{Binding LogoutCommand}"/>
+            <Button Content="Historia dostarczonych" DockPanel.Dock="Right" Width="180" Command="{Binding ShowDeliveredHistoryCommand}"/>
         </DockPanel>
 
         <!-- Zawartość -->

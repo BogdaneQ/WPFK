@@ -56,7 +56,7 @@
         <DockPanel LastChildFill="False" Margin="0,0,0,20">
             <TextBlock Text="🚚 Panel Administratora - Kurier" FontSize="26" FontWeight="Bold" Foreground="#007ACC"
                        VerticalAlignment="Center"/>
-            <Button Content="Wyloguj" DockPanel.Dock="Right" Width="100" Click="LogoutButton_Click"/>
+            <Button Content="Wyloguj" DockPanel.Dock="Right" Width="100" Command="{Binding LogoutCommand}"/>
         </DockPanel>
 
         <Grid Grid.Row="1">

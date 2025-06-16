@@ -1,29 +1,29 @@
 ﻿using System.Windows;
 using WPFK.Data;
 using WPFK.Models;
+using System.Windows;
+using WPFK.ViewModels;
+using System.Windows.Controls;
 
 namespace WPFK
 {
     public partial class RegisterWindow : Window
     {
+        private readonly RegisterViewModel _viewModel;
+
         public RegisterWindow()
         {
             InitializeComponent();
+            _viewModel = new RegisterViewModel();
+            DataContext = _viewModel;
         }
 
-        private void Register_Click(object sender, RoutedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            using var db = new AppDbContext();
-            string username = UsernameBox.Text;
-            string password = PasswordBox.Password;
-
-            var user = new User { Username = username, Password = password, Role = "USER" };
-            db.Users.Add(user);
-            db.SaveChanges();
-
-            MessageBox.Show("Rejestracja zakończona!");
-            this.Close();
+            if (DataContext is RegisterViewModel vm)
+            {
+                vm.Password = ((PasswordBox)sender).Password;
+            }
         }
     }
 }
-

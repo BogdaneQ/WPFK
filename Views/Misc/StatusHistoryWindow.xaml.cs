@@ -12,25 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFK.Data;
+using WPFK.ViewModels;
 
 namespace WPFK
 {
-    /// <summary>
-    /// Logika interakcji dla klasy StatusHistoryWindow.xaml
-    /// </summary>
     public partial class StatusHistoryWindow : Window
     {
         public StatusHistoryWindow(int parcelId)
         {
             InitializeComponent();
-
-            using var db = new AppDbContext();
-            var history = db.ParcelStatusHistories
-                            .Where(h => h.ParcelId == parcelId)
-                            .OrderByDescending(h => h.ChangedAt)
-                            .ToList();
-
-            StatusHistoryListView.ItemsSource = history;
+            DataContext = new StatusHistoryViewModel(parcelId);
         }
     }
 

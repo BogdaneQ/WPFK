@@ -52,12 +52,12 @@
                 <TextBlock Text="Logowanie" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
                 <TextBlock Text="Nazwa użytkownika:"/>
-                <TextBox x:Name="UsernameTextBox" Margin="0,0,0,15"/>
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" x:Name="UsernameTextBox" Height="27" />
 
                 <TextBlock Text="Hasło:"/>
-                <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20" Height="25"/>
-                <Button Content="Zaloguj" Click="LoginButton_Click" Width="100" Height="22"/>
-                <Button Content="Zarejestruj" Click="RegisterButton_Click" Width="100" Height="24"/>
+                <PasswordBox x:Name="PasswordBox"  PasswordChanged="PasswordBox_PasswordChanged" Height="27" />
+                <Button Content="Zaloguj" Command="{Binding LoginCommand}" Width="100" Height="22"/>
+                <Button Content="Zarejestruj" Command="{Binding RegisterCommand}" Width="100" Height="24"/>
             </StackPanel>
         </Border>
     </Grid>

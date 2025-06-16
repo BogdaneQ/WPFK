@@ -70,6 +70,8 @@ namespace WPFK.ViewModels
         public ICommand ShowHistoryCommand { get; }
         public ICommand DeleteParcelCommand { get; }
 
+        public ICommand ShowDeliveredHistoryCommand { get; }
+
         public ParcelListViewModel()
         {
             RefreshCommand = new RelayCommand(async () => await LoadParcelsAsync());
@@ -78,6 +80,7 @@ namespace WPFK.ViewModels
             FilterCommand = new RelayCommand(FilterParcels);
             ShowHistoryCommand = new RelayCommand(ShowHistory);
             DeleteParcelCommand = new RelayCommand(DeleteParcel, () => SelectedParcel != null);
+            ShowDeliveredHistoryCommand = new RelayCommand(ShowDeliveredHistory);
             _ = LoadParcelsAsync();
         }
 
@@ -216,7 +219,28 @@ namespace WPFK.ViewModels
 
             MessageBox.Show($"Status: {SelectedParcel.Status}\nData utworzenia: {SelectedParcel.CreatedAt:g}", "Historia paczki");
         }
+       
 
+        
+        
+           
+        
+
+        private void ShowDeliveredHistory()
+        {
+            var userId = Session.CurrentUser?.Id ?? 0;
+            var historyView = new WPFK.Views.Users.UserDeliveredHistory(userId);
+
+            var window = new Window
+            {
+                Title = "Historia dostarczonych przesyłek",
+                Content = historyView,
+                Width = 600,
+                Height = 400,
+                DataContext = new WPFK.ViewModels.UserDeliveredHistoryViewModel(userId)
+            };
+            window.ShowDialog();
+        }
         private void DeleteParcel()
         {
             if (SelectedParcel == null)
@@ -246,5 +270,6 @@ namespace WPFK.ViewModels
                 MessageBox.Show("Błąd podczas usuwania paczki.");
             }
         }
+
     }
 }
