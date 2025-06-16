@@ -8,12 +8,12 @@ namespace WPFK.Models
     {
         public int Id { get; set; }
 
-        // Foreign key for Sender
+      
         public int SenderId { get; set; }
         [ForeignKey(nameof(SenderId))]
         public User Sender { get; set; }
 
-        // Foreign key for Recipient
+       
         public int RecipientId { get; set; }
         [ForeignKey(nameof(RecipientId))]
         public User Recipient { get; set; }

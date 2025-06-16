@@ -150,7 +150,7 @@ namespace WPFK.ViewModels
                 _ = LoadParcelsAsync();
                 MessageBox.Show("Paczka została dodana.");
 
-                // Wyczyść formularz po dodaniu
+                
                 NewParcelSender = string.Empty;
                 NewParcelRecipient = string.Empty;
                 NewParcelAddress = string.Empty;
