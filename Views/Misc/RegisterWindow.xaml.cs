@@ -17,7 +17,7 @@ namespace WPFK
             string username = UsernameBox.Text;
             string password = PasswordBox.Password;
 
-            var user = new User { Username = username, Password = password };
+            var user = new User { Username = username, Password = password, Role = "USER" };
             db.Users.Add(user);
             db.SaveChanges();
 

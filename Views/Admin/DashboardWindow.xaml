@@ -1,4 +1,4 @@
-﻿<Window x:Class="WPFK.DashboardWindow"
+﻿<Window x:Class="WPFK.Views.Admin.DashboardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Kurier - Panel Administratora" Height="600" Width="800"
@@ -17,58 +17,59 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Formularz dodawania przesyłki -->
+            <!-- Formularz dodawania/edycji przesyłki -->
             <StackPanel Grid.Column="0" Margin="0,0,20,0">
                 <TextBlock FontSize="18" Margin="0,0,0,10">
-        <Run Language="pl-pl" Text="Nowa paczka"/><Run Text=":"/>
+                    <Run Language="pl-pl" Text="Nowa paczka"/><Run Text=":"/>
                 </TextBlock>
 
                 <TextBlock Text="Nadawca:" Margin="0,5,0,0"/>
-                <TextBox x:Name="SenderTextBox" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelSender, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
 
                 <TextBlock Text="Odbiorca:" Margin="0,10,0,0"/>
-                <TextBox x:Name="RecipientTextBox" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelRecipient, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
 
                 <TextBlock Text="Adres dostawy:" Margin="0,10,0,0"/>
-                <TextBox x:Name="AddressTextBox" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
 
                 <TextBlock Text="Status przesyłki:" Margin="0,10,0,0"/>
-                <ComboBox x:Name="StatusComboBox" Margin="0,5">
+                <ComboBox SelectedItem="{Binding NewParcelStatus, UpdateSourceTrigger=PropertyChanged}" Margin="0,5">
                     <ComboBoxItem Content="Przyjęta"/>
                     <ComboBoxItem Content="W drodze"/>
                     <ComboBoxItem Content="Dostarczona"/>
                 </ComboBox>
 
-                <Button Content="Dodaj przesyłkę" Click="AddParcel_Click" Margin="0,10,0,0"/>
-                <Button Content="Edytuj przesyłkę" Margin="0,5,0,0" Click="EditParcel_Click"/>
+                <Button Content="Dodaj przesyłkę" Command="{Binding AddParcelCommand}" Margin="0,10,0,0"/>
+                <Button Content="Edytuj przesyłkę" Command="{Binding EditParcelCommand}" Margin="0,5,0,0"/>
             </StackPanel>
-
 
             <!-- Lista przesyłek -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Lista przesyłek:" FontSize="18" Margin="0,0,0,10"/>
-                <ListView x:Name="ParcelListView" Height="400" SelectionChanged="ParcelListView_SelectionChanged">
+                <ListView ItemsSource="{Binding Parcels}" SelectedItem="{Binding SelectedParcel, Mode=TwoWay}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="30"/>
-                            <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="100"/>
-                            <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="100"/>
-                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                            <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding SenderName}" />
+                            <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding RecipientName}" />
+                            <GridViewColumn Header="Adres" DisplayMemberBinding="{Binding Address}" />
+                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                            <GridViewColumn Header="Data utworzenia" DisplayMemberBinding="{Binding CreatedAt}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Odśwież" Margin="0,10,0,0" Click="RefreshParcels_Click"/>
+                <Button Content="Odśwież" Command="{Binding RefreshCommand}" Margin="0,10,0,0"/>
             </StackPanel>
 
+            <!-- Filtracja i historia -->
             <StackPanel Orientation="Horizontal" Margin="0,331,0,132">
                 <TextBlock Text="Filtruj po statusie:" Height="20" Width="104"/>
-                <ComboBox x:Name="FilterStatusComboBox" Width="150" Height="25">
-                    <ComboBoxItem Content="Wszystkie" IsSelected="True"/>
+                <ComboBox SelectedItem="{Binding FilterStatus, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="25">
+                    <ComboBoxItem Content="Wszystkie"/>
                     <ComboBoxItem Content="Przyjęta"/>
                     <ComboBoxItem Content="W drodze"/>
                     <ComboBoxItem Content="Dostarczona"/>
                 </ComboBox>
-                <Button Content="Filtruj" Margin="10,0,0,0" Click="FilterParcels_Click" Height="25" RenderTransformOrigin="0.5,0.5">
+                <Button Content="Filtruj" Command="{Binding FilterCommand}" Margin="10,0,0,0" Height="25" RenderTransformOrigin="0.5,0.5">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="1"/>
@@ -79,8 +80,7 @@
                     </Button.RenderTransform>
                 </Button>
             </StackPanel>
-            <Button Content="Pokaż historię" Margin="0,385,20,0" Click="ShowHistory_Click" Height="47" VerticalAlignment="Top"/>
-
+            <Button Content="Pokaż historię" Command="{Binding ShowHistoryCommand}" Margin="0,385,20,0" Height="47" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>

@@ -9,8 +9,8 @@ namespace WPFK.ViewModels
     internal class ParcelViewModel
     {
         public int Id { get; set; }
-        public string Sender { get; set; }
-        public string Recipient { get; set; }
+        public string SenderName { get; set; }
+        public string RecipientName { get; set; }
         public string Address { get; set; }
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }

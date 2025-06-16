@@ -28,22 +28,20 @@
         <!-- Main content area -->
         <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Center" Width="600">
             <TextBlock Text="Twoje przesyłki" FontSize="22" FontWeight="Bold" Margin="0,0,0,15" Foreground="#333" />
-
-            <!-- Przykładowa lista przesyłek -->
-            <ListView Name="ParcelListView" BorderBrush="#ccc" BorderThickness="1" Height="300" >
+            <ListView ItemsSource="{Binding Parcels}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Nadawca" Width="150" DisplayMemberBinding="{Binding Sender}" />
-                        <GridViewColumn Header="Odbiorca" Width="150" DisplayMemberBinding="{Binding Recipient}" />
-                        <GridViewColumn Header="Status" Width="120" DisplayMemberBinding="{Binding Status}" />
-                        <GridViewColumn Header="Adres" Width="200" DisplayMemberBinding="{Binding Address}" />
+                        <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding SenderName}" />
+                        <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding RecipientName}" />
+                        <GridViewColumn Header="Adres" DisplayMemberBinding="{Binding Address}" />
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" />
+                        <GridViewColumn Header="Data utworzenia" DisplayMemberBinding="{Binding CreatedAt}" />
                     </GridView>
                 </ListView.View>
             </ListView>
 
-            <Button Content="Odśwież" Width="100" Margin="0,15,0,0" HorizontalAlignment="Right" Padding="8,5"
-                    Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand"  />
+            <Button Content="Odśwież" Command="{Binding RefreshCommand}" Width="100" Margin="0,15,0,0" HorizontalAlignment="Right" Padding="8,5"
+        Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand"  />
         </StackPanel>
     </Grid>
 </UserControl>

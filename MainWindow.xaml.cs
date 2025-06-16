@@ -5,6 +5,7 @@ using WPFK.Helpers;
 using WPFK.Models;
 using WPFK.Views;
 using WPFK.Views.Users;
+using WPFK.Views.Admin;
 
 
 
@@ -40,6 +41,7 @@ namespace WPFK
                 if (Session.CurrentUser.Role == "ADMIN")
                 {
                     var dashboard = new DashboardWindow();
+                    
                     dashboard.Show();
                 }
                 if (Session.CurrentUser.Role == "USER")
