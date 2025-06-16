@@ -48,10 +48,19 @@ namespace WPFK.ViewModels
         }
 
         private string _filterStatus;
+
         public string FilterStatus
         {
             get => _filterStatus;
-            set { _filterStatus = value; OnPropertyChanged(); }
+            set
+            {
+                if (_filterStatus != value)
+                {
+                    _filterStatus = value;
+                    OnPropertyChanged();
+                    _ = LoadParcelsAsync(); 
+                }
+            }
         }
 
         public ICommand RefreshCommand { get; }
@@ -59,6 +68,7 @@ namespace WPFK.ViewModels
         public ICommand EditParcelCommand { get; }
         public ICommand FilterCommand { get; }
         public ICommand ShowHistoryCommand { get; }
+        public ICommand DeleteParcelCommand { get; }
 
         public ParcelListViewModel()
         {
@@ -67,6 +77,8 @@ namespace WPFK.ViewModels
             EditParcelCommand = new RelayCommand(EditParcel, () => SelectedParcel != null);
             FilterCommand = new RelayCommand(FilterParcels);
             ShowHistoryCommand = new RelayCommand(ShowHistory);
+            DeleteParcelCommand = new RelayCommand(DeleteParcel, () => SelectedParcel != null);
+            _ = LoadParcelsAsync();
         }
 
         public async Task LoadParcelsAsync()
@@ -196,7 +208,43 @@ namespace WPFK.ViewModels
 
         private void ShowHistory()
         {
-            MessageBox.Show("Wyświetlanie historii paczek nie jest jeszcze zaimplementowane.");
+            if (SelectedParcel == null)
+            {
+                MessageBox.Show("Wybierz paczkę, aby zobaczyć historię.");
+                return;
+            }
+
+            MessageBox.Show($"Status: {SelectedParcel.Status}\nData utworzenia: {SelectedParcel.CreatedAt:g}", "Historia paczki");
+        }
+
+        private void DeleteParcel()
+        {
+            if (SelectedParcel == null)
+                return;
+
+            var result = MessageBox.Show("Czy na pewno chcesz usunąć tę paczkę?", "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            try
+            {
+                using var db = new AppDbContext();
+                var parcel = db.Parcels.FirstOrDefault(p => p.Id == SelectedParcel.Id);
+                if (parcel == null)
+                {
+                    MessageBox.Show("Nie znaleziono paczki.");
+                    return;
+                }
+
+                db.Parcels.Remove(parcel);
+                db.SaveChanges();
+                _ = LoadParcelsAsync();
+                MessageBox.Show("Paczka została usunięta.");
+            }
+            catch
+            {
+                MessageBox.Show("Błąd podczas usuwania paczki.");
+            }
         }
     }
 }

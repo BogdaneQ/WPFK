@@ -86,8 +86,9 @@
                         <ComboBoxItem Content="Dostarczona"/>
                     </ComboBox>
 
-                    <Button Content="Dodaj przesyłkę" Command="{Binding AddParcelCommand}" Margin="0,10,0,0" Width="297"/>
-                    <Button Content="Edytuj przesyłkę" Command="{Binding EditParcelCommand}" Width="298"/>
+                    <Button Content="Dodaj przesyłkę" Command="{Binding AddParcelCommand}" Margin="0,10,0,10" Width="300"/>
+                    <Button Content="Edytuj przesyłkę" Command="{Binding EditParcelCommand}" Margin="0,10,0,10" Width="300"/>
+                    <Button Content="Usuń przesyłkę" Command="{Binding DeleteParcelCommand}" Margin="0,10,0,10" Width="300"/>
                 </StackPanel>
             </Border>
 
@@ -109,13 +110,14 @@
                 <!-- FILTR + przyciski -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
                     <TextBlock Text="Filtruj po statusie:" VerticalAlignment="Center" Width="130"/>
-                    <ComboBox SelectedItem="{Binding FilterStatus, UpdateSourceTrigger=PropertyChanged}" Width="150">
-                        <ComboBoxItem Content="Wszystkie"/>
-                        <ComboBoxItem Content="Przyjęta"/>
-                        <ComboBoxItem Content="W drodze"/>
-                        <ComboBoxItem Content="Dostarczona"/>
-                    </ComboBox>
-                    <Button Content="Filtruj" Command="{Binding FilterCommand}" Width="90"/>
+                   
+                        <ComboBox SelectedValue="{Binding FilterStatus, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Width="150">
+                            <ComboBoxItem Content="Wszystkie"/>
+                            <ComboBoxItem Content="Przyjęta"/>
+                            <ComboBoxItem Content="W drodze"/>
+                            <ComboBoxItem Content="Dostarczona"/>
+                        </ComboBox>
+                   
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="31">
