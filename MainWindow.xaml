@@ -47,7 +47,7 @@
 
     <Grid Margin="20">
         <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#B0D9FF" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Width="250" Height="218">
+            <StackPanel Width="250" Height="235">
 
                 <TextBlock Text="Logowanie" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
@@ -55,7 +55,7 @@
                 <TextBox x:Name="UsernameTextBox" Margin="0,0,0,15"/>
 
                 <TextBlock Text="Hasło:"/>
-                <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20"/>
+                <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20" Height="25"/>
                 <Button Content="Zaloguj" Click="LoginButton_Click" Width="100" Height="22"/>
                 <Button Content="Zarejestruj" Click="RegisterButton_Click" Width="100" Height="24"/>
             </StackPanel>

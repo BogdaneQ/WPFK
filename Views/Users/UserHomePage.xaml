@@ -56,7 +56,7 @@
                     </ListView.View>
                 </ListView>
 
-                <Button Content="🔄 Odśwież" Command="{Binding RefreshCommand}" Width="120"/>
+                <Button Content="🔄 Odśwież" Command="{Binding RefreshCommand}" Width="120" Height="22"/>
             </StackPanel>
         </Border>
     </Grid>

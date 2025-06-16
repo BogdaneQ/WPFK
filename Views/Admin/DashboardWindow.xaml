@@ -115,12 +115,12 @@
                         <ComboBoxItem Content="W drodze"/>
                         <ComboBoxItem Content="Dostarczona"/>
                     </ComboBox>
-                    <Button Content="Filtruj" Command="{Binding FilterCommand}" Width="80"/>
+                    <Button Content="Filtruj" Command="{Binding FilterCommand}" Width="90"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="📜 Pokaż historię" Command="{Binding ShowHistoryCommand}" Margin="0,10,0,0" Width="140"/>
-                    <Button Content="🔄 Odśwież" Command="{Binding RefreshCommand}" Margin="0,10,0,0" Width="100"/>
+                <StackPanel Orientation="Horizontal" Height="31">
+                    <Button Content="📜 Pokaż historię" Command="{Binding ShowHistoryCommand}" Width="140" Height="22"/>
+                    <Button Content="🔄 Odśwież" Command="{Binding RefreshCommand}" Width="100" Height="22"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
