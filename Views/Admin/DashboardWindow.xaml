@@ -44,6 +44,11 @@
             <Setter Property="BorderBrush" Value="#007ACC"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
+        <CollectionViewSource x:Key="GroupedParcels" Source="{Binding Parcels}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Status"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
 
     <Grid Margin="20">
@@ -95,7 +100,8 @@
             <!-- LISTA przesyłek -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="📦 Lista przesyłek:" FontSize="18" FontWeight="Bold" Foreground="#007ACC" Margin="0,0,0,10"/>
-                <ListView ItemsSource="{Binding Parcels}" SelectedItem="{Binding SelectedParcel, Mode=TwoWay}" Height="350">
+                <ListView ItemsSource="{Binding Source={StaticResource GroupedParcels}}" 
+          SelectedItem="{Binding SelectedParcel, Mode=TwoWay}" Height="350">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding SenderName}" />
@@ -105,6 +111,16 @@
                             <GridViewColumn Header="Data utworzenia" DisplayMemberBinding="{Binding CreatedAt}" />
                         </GridView>
                     </ListView.View>
+
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#005F99" Margin="0,10,0,4"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
                 </ListView>
 
                 <!-- FILTR + przyciski -->
