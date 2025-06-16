@@ -5,6 +5,12 @@ using System.Windows;
 using System.Windows.Input;
 using WPFK.Data;
 using WPFK.Helpers;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System.Diagnostics;
+using Microsoft.Win32;
+using PdfSharp.Drawing;
+
 
 namespace WPFK.ViewModels
 {
@@ -71,6 +77,8 @@ namespace WPFK.ViewModels
         public ICommand DeleteParcelCommand { get; }
 
         public ICommand ShowDeliveredHistoryCommand { get; }
+        public ICommand GeneratePdfCommand { get; }
+
 
         public ParcelListViewModel()
         {
@@ -82,6 +90,8 @@ namespace WPFK.ViewModels
             DeleteParcelCommand = new RelayCommand(DeleteParcel, () => SelectedParcel != null);
             ShowDeliveredHistoryCommand = new RelayCommand(ShowDeliveredHistory);
             _ = LoadParcelsAsync();
+            GeneratePdfCommand = new RelayCommand(GeneratePdf);
+
         }
 
         public async Task LoadParcelsAsync()
@@ -219,12 +229,73 @@ namespace WPFK.ViewModels
 
             MessageBox.Show($"Status: {SelectedParcel.Status}\nData utworzenia: {SelectedParcel.CreatedAt:g}", "Historia paczki");
         }
-       
 
-        
-        
-           
-        
+
+        private void GeneratePdf()
+        {
+            if (Parcels.Count == 0)
+            {
+                MessageBox.Show("Brak paczek do wyeksportowania.");
+                return;
+            }
+
+            try
+            {
+                var dlg = new SaveFileDialog
+                {
+                    Filter = "PDF Files (*.pdf)|*.pdf",
+                    FileName = "ListaPaczek.pdf"
+                };
+
+                if (dlg.ShowDialog() != true)
+                    return;
+
+                using var document = new PdfDocument();
+                document.Info.Title = "Lista przesyłek";
+
+                var page = document.AddPage();
+                var gfx = XGraphics.FromPdfPage(page);
+                var font = new XFont("Arial", 12);
+                var fontBold = new XFont("Arial", 18);
+
+
+
+                double yPoint = 40;
+
+                gfx.DrawString("Lista przesyłek", fontBold, XBrushes.Black,
+                    new XRect(0, yPoint, page.Width, page.Height),
+                    XStringFormats.TopCenter);
+                yPoint += 40;
+
+                foreach (var parcel in Parcels)
+                {
+                    string line = $"Nadawca: {parcel.SenderName} | Odbiorca: {parcel.RecipientName} | " +
+                                  $"Adres: {parcel.Address} | Status: {parcel.Status} | Data: {parcel.CreatedAt:g}";
+
+                    gfx.DrawString(line, font, XBrushes.Black, new XRect(40, yPoint, page.Width - 80, page.Height), XStringFormats.TopLeft);
+                    yPoint += 25;
+
+                    if (yPoint > page.Height - 40)
+                    {
+                        page = document.AddPage();
+                        gfx = XGraphics.FromPdfPage(page);
+                        yPoint = 40;
+                    }
+                }
+
+                document.Save(dlg.FileName);
+
+                MessageBox.Show("PDF został wygenerowany.");
+                Process.Start(new ProcessStartInfo(dlg.FileName) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas generowania PDF: {ex.Message}");
+            }
+        }
+
+
+
 
         private void ShowDeliveredHistory()
         {

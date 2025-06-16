@@ -123,6 +123,8 @@
                 <StackPanel Orientation="Horizontal" Height="31">
                     <Button Content="📜 Pokaż historię" Command="{Binding ShowHistoryCommand}" Width="140" Height="22"/>
                     <Button Content="🔄 Odśwież" Command="{Binding RefreshCommand}" Width="100" Height="22"/>
+                    <Button Content="📄 Generuj PDF" Command="{Binding GeneratePdfCommand}" Width="140" Height="22" Margin="5,0,0,0"/>
+
                 </StackPanel>
             </StackPanel>
         </Grid>

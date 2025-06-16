@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using WPFK.Data;
+using PdfSharp.Fonts;
 
 namespace WPFK
 {
@@ -19,8 +20,8 @@ namespace WPFK
             //    db.Parcels.RemoveRange(db.Parcels);
             //    db.SaveChanges();
             //}
+            GlobalFontSettings.FontResolver = new MyFontResolver();
 
-            
         }
 
     }
