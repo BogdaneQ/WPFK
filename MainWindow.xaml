@@ -4,6 +4,7 @@
         Title="Logowanie" Height="500" Width="500"
         Background="#E0F0FF"
         WindowStartupLocation="CenterScreen">
+
     <Window.Resources>
         <!-- Styl dla przycisków -->
         <Style TargetType="Button">
@@ -45,10 +46,16 @@
         </Style>
     </Window.Resources>
 
-    <Grid Margin="20">
-        <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#B0D9FF" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Width="250" Height="235">
+    <Grid Margin="20,23,10,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="201*"/>
+        </Grid.ColumnDefinitions>
 
+        <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#B0D9FF" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="513" Grid.Column="1" Margin="16,0,0,0">
+            <StackPanel Width="250" Height="347">
+
+                <Image Source="Images/kurier_logo.png" Height="76" Margin="0,0,0,15" Stretch="Uniform" HorizontalAlignment="Center"/>
                 <TextBlock Text="Logowanie" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
                 <TextBlock Text="Nazwa użytkownika:"/>
