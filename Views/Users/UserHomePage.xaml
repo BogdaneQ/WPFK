@@ -18,9 +18,8 @@
             <DockPanel LastChildFill="False">
                 <TextBlock Text="Witaj, Użytkowniku!" Foreground="White" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right" VerticalAlignment="Center" >
-                    <Button Content="Moje Przesyłki" Margin="5,0" Padding="10,5" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" />
-                    <Button Content="Profil" Margin="5,0" Padding="10,5" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" />
-                    <Button Content="Wyloguj" Margin="5,0" Padding="10,5" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" />
+                    <Button Content="Historia dostarczonych" Margin="5,0" Padding="10,5" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" Click="ShowDeliveredHistory_Click"/>
+                    <Button Content="Wyloguj" Margin="5,0" Padding="10,5" Background="Transparent" Foreground="White" BorderBrush="Transparent" Cursor="Hand" Click="LogoutButton_Click" />
                 </StackPanel>
             </DockPanel>
         </Border>

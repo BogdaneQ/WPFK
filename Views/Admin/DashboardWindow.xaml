@@ -10,6 +10,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Panel Admina - Kurier" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        <Button Content="Wyloguj" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,0,0,0" Click="LogoutButton_Click"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -20,20 +21,23 @@
             <!-- Formularz dodawania/edycji przesyłki -->
             <StackPanel Grid.Column="0" Margin="0,0,20,0">
                 <TextBlock FontSize="18" Margin="0,0,0,10">
-                    <Run Language="pl-pl" Text="Nowa paczka"/><Run Text=":"/>
+        <Run Language="pl-pl" Text="Nowa paczka"/><Run Text=":"/>
                 </TextBlock>
 
                 <TextBlock Text="Nadawca:" Margin="0,5,0,0"/>
-                <TextBox Text="{Binding NewParcelSender, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelSender, UpdateSourceTrigger=PropertyChanged}" Margin="0,5" ToolTip="Login nadawcy" TextChanged="TextBox_TextChanged"/>
+
 
                 <TextBlock Text="Odbiorca:" Margin="0,10,0,0"/>
-                <TextBox Text="{Binding NewParcelRecipient, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelRecipient, UpdateSourceTrigger=PropertyChanged}" Margin="0,5" ToolTip="Login odbiorcy"/>
+
 
                 <TextBlock Text="Adres dostawy:" Margin="0,10,0,0"/>
-                <TextBox Text="{Binding NewParcelAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"/>
+                <TextBox Text="{Binding NewParcelAddress, UpdateSourceTrigger=PropertyChanged}" Margin="0,5" ToolTip="Adres"/>
 
                 <TextBlock Text="Status przesyłki:" Margin="0,10,0,0"/>
-                <ComboBox SelectedItem="{Binding NewParcelStatus, UpdateSourceTrigger=PropertyChanged}" Margin="0,5">
+                <ComboBox SelectedValue="{Binding NewParcelStatus, UpdateSourceTrigger=PropertyChanged}" Margin="0,5"
+              SelectedValuePath="Content">
                     <ComboBoxItem Content="Przyjęta"/>
                     <ComboBoxItem Content="W drodze"/>
                     <ComboBoxItem Content="Dostarczona"/>
