@@ -109,6 +109,10 @@ namespace WPFK.ViewModels
                 using var db = new AppDbContext();
                 var query = db.Parcels
                     .Where(p => p.SenderId == userId || p.RecipientId == userId);
+                if (Session.CurrentUser.Role == "ADMIN")
+                {
+                    query = db.Parcels;
+                }
 
                 if (!string.IsNullOrEmpty(FilterStatus) && FilterStatus != "Wszystkie")
                 {

@@ -73,19 +73,19 @@
             <!-- FORMULARZ dodawania/edycji paczek -->
             <Border Grid.Column="0" Background="White" Padding="15" Margin="0,0,20,0" CornerRadius="10" BorderBrush="#B0D9FF" BorderThickness="1">
                 <StackPanel>
-                    <TextBlock Text="Nowa paczka:" FontSize="18" FontWeight="Bold" Foreground="#007ACC" Margin="0,0,0,10"/>
+                    <TextBlock Text="Szczegóły paczki:" FontSize="18" FontWeight="Bold" Foreground="#007ACC" Margin="0,0,0,10"/>
 
                     <TextBlock Text="Nadawca:"/>
-                    <TextBox Text="{Binding NewParcelSender, UpdateSourceTrigger=PropertyChanged}" ToolTip="Login nadawcy"/>
+                    <TextBox Text="{Binding SelectedParcel.SenderName, UpdateSourceTrigger=PropertyChanged}" ToolTip="Login nadawcy"/>
 
                     <TextBlock Text="Odbiorca:" Margin="0,10,0,0"/>
-                    <TextBox Text="{Binding NewParcelRecipient, UpdateSourceTrigger=PropertyChanged}" ToolTip="Login odbiorcy"/>
+                    <TextBox Text="{Binding SelectedParcel.RecipientName, UpdateSourceTrigger=PropertyChanged}" ToolTip="Login odbiorcy"/>
 
                     <TextBlock Text="Adres dostawy:" Margin="0,10,0,0"/>
-                    <TextBox Text="{Binding NewParcelAddress, UpdateSourceTrigger=PropertyChanged}" ToolTip="Adres"/>
+                    <TextBox Text="{Binding SelectedParcel.Address, UpdateSourceTrigger=PropertyChanged}" ToolTip="Adres"/>
 
                     <TextBlock Text="Status przesyłki:" Margin="0,10,0,0"/>
-                    <ComboBox SelectedValue="{Binding NewParcelStatus, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content">
+                    <ComboBox SelectedValue="{Binding SelectedParcel.Status, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content">
                         <ComboBoxItem Content="Przyjęta"/>
                         <ComboBoxItem Content="W drodze"/>
                         <ComboBoxItem Content="Dostarczona"/>
@@ -96,6 +96,7 @@
                     <Button Content="Usuń przesyłkę" Command="{Binding DeleteParcelCommand}" Margin="0,10,0,10" Width="300"/>
                 </StackPanel>
             </Border>
+
 
             <!-- LISTA przesyłek -->
             <StackPanel Grid.Column="1">
